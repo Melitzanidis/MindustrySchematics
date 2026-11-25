@@ -1,30 +1,27 @@
 # Mindustry Schematic Repository
 
-This repository contains custom schematics for the [Mindustry](https://mindustrygame.github.io/) game, compatible with the [Schematic Browser](https://github.com/MindustryDesignIt/schematic-browser-mod) mod.
+Custom schematics for [Mindustry](https://mindustrygame.github.io/), compatible with the [Schematic Browser](https://github.com/MindustryDesignIt/schematic-browser-mod) mod.
 
-## How to Add This Repository
+## Adding This Repository
 
-1. In-game, open the **Schematic Browser** mod interface
-2. Navigate to: **Database → Schematics → Schematic Browser → Schematic Repositories → Add Repo → Fetch**
-3. Enter this repository's GitHub URL
+See the [Schematic Browser documentation](https://github.com/MindustryDesignIt/schematic-browser-mod#adding-repositories) for instructions on adding custom repositories.
 
-## Folder Structure
-
-Schematics are organized into Serpulo categories:
+## Structure
 
 ```
-Serpulo/
-├── Factories/
-├── Defense/
-├── Logic/
-└── Unit/
+schematics/
 ```
 
-## Adding New Schematics
+Place `.msch` files directly in the `schematics/` folder. Subfolders act as categories in-game.
 
-1. Place `.msch` files in appropriate category folders
-2. Run `sync.sh` to commit and push changes
+## Sync Helper
 
-## Credits
+```bash
+./sync.sh              # Commit & push with timestamp
+./sync.sh "My message" # Commit & push with custom message
+./auto-sync.sh &       # Auto-commit on file changes (background)
+```
+
+---
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
