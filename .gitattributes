@@ -1,0 +1,2 @@
+# Treat .msch files as binary to prevent line-ending corruption
+*.msch binary

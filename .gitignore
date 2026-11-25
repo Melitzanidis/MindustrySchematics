@@ -1,0 +1,40 @@
+# OS clutter
+.DS_Store
+Thumbs.db
+.DS_Store?*
+._*
+
+# Editor clutter
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.c9/
+*.launch
+.settings/
+
+# Backup and temporary files
+*.bak
+*.tmp
+*.orig
+*#
+
+# Java/Gradle (not needed for schematic repo)
+.gradle/
+build/
+out/
+*.class
+*.jar
+*.war
+*.ear
+
+# Environment files
+.env
+.env.local
+*.pyc
+__pycache__/
+
+# Logs
+*.log
