@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # auto-sync.sh - Watches for .msch file changes and auto-commits/pushes
-# Run in background: ./auto-sync.sh &
+# Run in background: ./.scripts/auto-sync.sh &
 # Stop with: pkill -f auto-sync.sh
 
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_DIR"
 
 echo "🔄 Auto-sync started. Watching for .msch changes in $REPO_DIR/schematics"
@@ -19,5 +19,5 @@ inotifywait -m -r -e close_write,moved_to,delete,moved_from --format '%w%f %e' -
     sleep 0.5
 
     # Run sync.sh (will exit cleanly if no changes)
-    ./sync.sh "Auto-sync: $event on $(basename "$file")" || true
+    .scripts/sync.sh "Auto-sync: $event on $(basename "$file")" || true
 done

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # sync.sh - Helper script to stage, commit, and push .msch schematic files
-# Usage: ./sync.sh ["custom commit message"]
+# Usage: ./.scripts/sync.sh ["custom commit message"]
 
 set -euo pipefail
 
@@ -10,7 +10,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
 
 # Check if we're in a git repo
