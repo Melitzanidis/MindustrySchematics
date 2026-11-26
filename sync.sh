@@ -10,6 +10,9 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$REPO_ROOT"
+
 # Check if we're in a git repo
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
     echo -e "${RED}Error: Not a git repository. Run 'git init' first.${NC}"
@@ -23,21 +26,21 @@ if ! git remote | grep -q '^origin$'; then
     exit 1
 fi
 
-# Check for .msch files to stage
-msch_files=$(git ls-files --others --exclude-standard -- '*.msch' | wc -l)
-modified_msch=$(git diff --name-only -- '*.msch' | wc -l)
-deleted_msch=$(git diff --name-only --diff-filter=D -- '*.msch' | wc -l)
+# Check for .msch files to stage (in schematics/ folder)
+msch_files=$(git ls-files --others --exclude-standard -- schematics/*.msch | wc -l)
+modified_msch=$(git diff --name-only -- schematics/*.msch | wc -l)
+deleted_msch=$(git diff --name-only --diff-filter=D -- schematics/*.msch | wc -l)
 
 total_changes=$((msch_files + modified_msch + deleted_msch))
 
 if [[ $total_changes -eq 0 ]]; then
-    echo -e "${YELLOW}No .msch file changes detected. Nothing to sync.${NC}"
+    echo -e "${YELLOW}No .msch file changes detected in schematics/. Nothing to sync.${NC}"
     exit 0
 fi
 
-# Stage all .msch files
-echo -e "${GREEN}Staging .msch files...${NC}"
-git add -- '*.msch'
+# Stage all .msch files in schematics/
+echo -e "${GREEN}Staging .msch files from schematics/...${NC}"
+git add -- schematics/*.msch
 
 # Determine commit message
 if [[ $# -gt 0 ]]; then
