@@ -26,21 +26,18 @@ if ! git remote | grep -q '^origin$'; then
     exit 1
 fi
 
-# Check for .msch files to stage (in schematics/ folder)
-msch_files=$(git ls-files --others --exclude-standard -- schematics/*.msch | wc -l)
-modified_msch=$(git diff --name-only -- schematics/*.msch | wc -l)
-deleted_msch=$(git diff --name-only --diff-filter=D -- schematics/*.msch | wc -l)
+# Check for .msch file changes using git status (handles new, modified, deleted)
+# Use git status without pathspec to catch deletions too, then filter for .msch
+changes=$(git status --porcelain | grep -E '\.msch$' | wc -l)
 
-total_changes=$((msch_files + modified_msch + deleted_msch))
-
-if [[ $total_changes -eq 0 ]]; then
+if [[ $changes -eq 0 ]]; then
     echo -e "${YELLOW}No .msch file changes detected in schematics/. Nothing to sync.${NC}"
     exit 0
 fi
 
-# Stage all .msch files in schematics/
+# Stage all .msch changes (new, modified, deleted)
 echo -e "${GREEN}Staging .msch files from schematics/...${NC}"
-git add -- schematics/*.msch
+git add -A -- schematics/
 
 # Determine commit message
 if [[ $# -gt 0 ]]; then
